@@ -1,5 +1,5 @@
 import { authModalState } from "@/atoms/authModalAtom";
-import AuthModal from "@/components/navbar/Modals/AuthModal";
+import AuthModal from "@/components/Modals/AuthModal";
 import Navbar from "@/components/navbar/Navbar";
 import { auth } from "@/firebase/firebase";
 import { useRouter } from "next/router";
