@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { authModalState } from "@/atoms/authModalAtom";
 import AuthModal from "@/components/Modals/AuthModal";
 import Navbar from "@/components/navbar/Navbar";
