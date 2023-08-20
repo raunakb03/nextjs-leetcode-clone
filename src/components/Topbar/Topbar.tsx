@@ -2,6 +2,7 @@ import { auth } from "@/firebase/firebase";
 import Link from "next/link";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Logout from "../buttons/Logout";
 
 type TopbarProps = {};
 
@@ -52,6 +53,7 @@ const Topbar: React.FC<TopbarProps> = () => {
                 </div>
               </div>
             )}
+            {user && <Logout />}
           </div>
         </div>
       </nav>
