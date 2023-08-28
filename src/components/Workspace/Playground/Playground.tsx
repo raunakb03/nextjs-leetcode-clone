@@ -25,7 +25,7 @@ const Playground: React.FC<PlaygroundProps> = ({
   setSolved,
 }) => {
   const [activeTestCaseId, setActiveTestCaseId] = useState(0);
-  const [userCode, setUserCode] = useState<string>(problem.starterCode);
+  let [userCode, setUserCode] = useState<string>(problem.starterCode);
   const [user] = useAuthState(auth);
   const router = useRouter();
   const {
@@ -42,9 +42,7 @@ const Playground: React.FC<PlaygroundProps> = ({
       return;
     }
     try {
-      setUserCode(
-        userCode.slice(userCode.indexOf(problem.starterFunctionName))
-      );
+      userCode = userCode.slice(userCode.indexOf(problem.starterFunctionName));
       const cb = new Function(`return ${userCode}`)();
       const handler = problems[pid as string].handlerFunction;
 
