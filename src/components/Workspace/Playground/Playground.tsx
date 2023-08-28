@@ -12,12 +12,19 @@ import { toast } from "react-toastify";
 import { problems } from "@/utils/problems";
 import { useRouter } from "next/router";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import useLocalStorage from "@/components/hooks/useLocalStorage";
 
 type PlaygroundProps = {
   problem: Problem;
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   setSolved: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export interface IsSettings {
+  fontSize: string;
+  settingsModalIsOpen: boolean;
+  dropdownIsOpen: boolean;
+}
 
 const Playground: React.FC<PlaygroundProps> = ({
   problem,
@@ -26,6 +33,14 @@ const Playground: React.FC<PlaygroundProps> = ({
 }) => {
   const [activeTestCaseId, setActiveTestCaseId] = useState(0);
   let [userCode, setUserCode] = useState<string>(problem.starterCode);
+
+  const [fontSize, setFontSize] = useLocalStorage("lcc-fontSize", "16px");
+  const [settings, setSettings] = useState<IsSettings>({
+    fontSize: fontSize,
+    settingsModalIsOpen: false,
+    dropdownIsOpen: false,
+  });
+
   const [user] = useAuthState(auth);
   const router = useRouter();
   const {
@@ -102,7 +117,7 @@ const Playground: React.FC<PlaygroundProps> = ({
   }, [pid, user, problem.starterCode]);
   return (
     <div className="flex flex-col bg-dark-layer-1 relative overflow-x-hidden">
-      <PreferenceNav />
+      <PreferenceNav settings={settings} setSettings={setSettings} />
       <Split
         className="h-[calc(100vh-94px)]"
         direction="vertical"
@@ -114,7 +129,7 @@ const Playground: React.FC<PlaygroundProps> = ({
             value={userCode}
             theme={vscodeDark}
             extensions={[javascript()]}
-            style={{ fontSize: 16 }}
+            style={{ fontSize: settings.fontSize }}
             onChange={onChange}
           />
         </div>
