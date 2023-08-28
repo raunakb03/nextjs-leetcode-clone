@@ -17,6 +17,7 @@ type TopbarProps = {
 const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
   const [user, loading, error] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
+  const handleProblemChange= (isForward: boolean)=>{}
   return (
     <>
       <nav className="relative flex h-[50px] w-full shrink-0 items-center px-5 bg-dark-layer-1 text-dark-gray-7">
@@ -43,7 +44,8 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
                 </div>
                 <p>Problem List</p>
               </Link>
-              <div className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer">
+              <div className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer"  
+              onClick={()=>handleProblemChange(true)}>
                 <FaChevronRight />
               </div>
             </div>
