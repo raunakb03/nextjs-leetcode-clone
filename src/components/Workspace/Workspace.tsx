@@ -1,4 +1,4 @@
-import { split } from "postcss/lib/list";
+import { useState } from "react";
 import React from "react";
 import Split from "react-split";
 import ProblemDescription from "./ProblemDescription/ProblemDescription";
@@ -10,10 +10,12 @@ type WorkspaceProps = {
 };
 
 const Workspace: React.FC<WorkspaceProps> = ({ problem }) => {
+  const [success, setSuccess] = useState(false);
+  const [solved, setSolved] = useState(false);
   return (
     <Split className="split" minSize={0}>
-      <ProblemDescription problem={problem} />
-      <Playground problem={problem} />
+      <ProblemDescription problem={problem} _solved={solved} />
+      <Playground problem={problem} setSuccess={setSuccess} setSolved={setSolved} />
     </Split>
   );
 };
